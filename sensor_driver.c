@@ -14,7 +14,7 @@
 int main() {
     int fd_i2c, fd_fifo;
     char buf[3];
-    const float resolution = 0.0288; // lx/bit for gain ×2, 100ms integration
+    const float resolution = 0.0288;
 
     // Open I2C bus
     if ((fd_i2c = open(I2C_BUS, O_RDWR)) < 0) {
@@ -30,9 +30,9 @@ int main() {
     }
 
     // Configure sensor (Register 0x00): Gain ×2 (01), Integration Time 100ms (0000), Power On (0)
-    buf[0] = 0x00;    // Command code
-    buf[1] = 0x00;    // LSB
-    buf[2] = 0x08;    // MSB (0x0800 = 0000 10 00 0000 0000)
+    buf[0] = 0x00;    
+    buf[1] = 0x00;   
+    buf[2] = 0x08;    
     if (write(fd_i2c, buf, 3) != 3) {
         perror("Failed to configure sensor");
         close(fd_i2c);
